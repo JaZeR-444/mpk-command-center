@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Generator</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: #f0f0f0; /* Neutral background to check transparencies if needed, though app icon is square */
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            align-items: flex-start;
+        }
+        .icon-container {
+            position: relative;
+            background: transparent;
+        }
+        /* Ensure specific rendering sizes */
+        #icon-180 { width: 180px; height: 180px; }
+        #icon-192 { width: 192px; height: 192px; }
+        #icon-512 { width: 512px; height: 512px; }
+        #icon-32  { width: 32px;  height: 32px;  } 
+    </style>
+</head>
+<body>
+
+    <!-- 180x180 Apple Touch Icon -->
+    <div class="icon-container" id="container-180">
+        <img id="icon-180" src="MIDI FAVICON LOGO.svg" alt="Apple Touch Icon">
+    </div>
+
+    <!-- 192x192 Android/PWA Icon -->
+    <div class="icon-container" id="container-192">
+        <img id="icon-192" src="MIDI FAVICON LOGO.svg" alt="192 Icon">
+    </div>
+
+    <!-- 512x512 Android/PWA Icon -->
+    <div class="icon-container" id="container-512">
+        <img id="icon-512" src="MIDI FAVICON LOGO.svg" alt="512 Icon">
+    </div>
+
+    <!-- 32x32 Favicon (for ICO conversion reference) -->
+    <div class="icon-container" id="container-32">
+        <img id="icon-32" src="MIDI FAVICON LOGO.svg" alt="32 Favicon">
+    </div>
+
+</body>
+</html>

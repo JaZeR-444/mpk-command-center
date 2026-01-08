@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AKAI MPK Mini MK3 - Mechanical Reference Clone</title>
+    <style>
+        :root {
+            --akai-red: #ba1a21;
+            --face-black: #121212;
+            --text-grey: #8a8a8a;
+            --text-white: #ffffff;
+            --key-shadow: rgba(0,0,0,0.4);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: #222;
+            display: flex; justify-content: center; align-items: center;
+            min-height: 100vh; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+
+        /* Physical Chassis Construction */
+        .mpk-shell {
+            display: flex;
+            width: 1180px;
+            background-color: var(--akai-red);
+            border-radius: 4px;
+            box-shadow: 0 50px 100px rgba(0,0,0,0.9);
+            padding-bottom: 15px; /* Red visible at bottom */
+        }
+
+        .side-cheek { width: 15px; height: 100%; background: var(--akai-red); }
+
+        .faceplate {
+            background-color: var(--face-black);
+            flex-grow: 1;
+            padding: 35px 35px 0 35px;
+            display: flex;
+            flex-direction: column;
+            border-radius: 2px 2px 0 0;
+        }
+
+        /* TOP SECTION LAYOUT */
+        .upper-layout {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 5px;
+        }
+
+        /* LEFT: Joystick & Arp */
+        .left-block { width: 150px; }
+        .joy-well {
+            width: 85px; height: 85px; background: #000; border-radius: 50%;
+            margin: 0 auto 25px; position: relative; box-shadow: inset 0 5px 15px #000;
+        }
+        .joy-stick {
+            position: absolute; top: 50%; left: 50%; width: 50px; height: 50px;
+            background: radial-gradient(circle at 35% 35%, #ff4d4d, #b71c1c, #300);
+            border-radius: 50%; transform: translate(-50%, -50%);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.8);
+        }
+        
+        /* ARP SECTION: ONLY ON/OFF & TAP TEMPO IN BRACKET */
+        .arp-wrap { position: relative; padding-top: 12px; margin-bottom: 5px; }
+        .arp-bracket {
+            position: absolute; top: 0; left: 0; width: 100%; height: 48px;
+            border-left: 1.5px solid var(--akai-red); border-top: 1.5px solid var(--akai-red);
+        }
+        .arp-bracket::after {
+            content: ""; position: absolute; bottom: 0; left: -1.5px; width: 100%; height: 1.5px; background: var(--akai-red);
+        }
+        .arp-text { color: var(--akai-red); font-size: 8.5px; font-weight: 900; position: absolute; top: -6px; left: 10px; background: var(--face-black); padding: 0 5px; }
+        .arp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 5px; position: relative; z-index: 5; }
+        .btn-hw { background: #0a0a0a; border: 1.5px solid #252525; border-radius: 1px; height: 36px; padding: 2px; }
+        .btn-print { border: 1.2px solid var(--akai-red); width: 100%; height: 100%; color: var(--akai-red); font-size: 7px; font-weight: 900; display: flex; align-items: center; justify-content: center; text-align: center; }
+        
+        /* Global buttons below Arp */
+        .global-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; margin-top: 5px; }
+        .print-silver { border: 1.2px solid #333; width: 100%; height: 100%; color: var(--text-grey); font-size: 7px; font-weight: 900; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .print-plain-red { width: 100%; height: 100%; color: var(--akai-red); font-size: 7px; font-weight: 900; display: flex; align-items: center; justify-content: center; text-align: center; }
+
+        /* CENTER: MPC Pads */
+        .center-block { display: flex; flex-direction: column; margin-left: 20px; padding-top: 15px; }
+        .pad-row { display: flex; gap: 15px; margin-bottom: 20px; }
+        .pad-u { position: relative; }
+        .pad-id { font-size: 7.5px; font-weight: 900; color: #fff; position: absolute; top: -16px; left: 0; width: 100%; text-align: center; opacity: 0.8; }
+        .pad-mid-id { font-size: 7.5px; font-weight: 900; color: #fff; position: absolute; bottom: -12px; left: 0; width: 100%; text-align: center; opacity: 0.8; }
+        .pad-phys { width: 85px; height: 85px; background: #181818; border: 1.5px solid #2a2a2a; border-radius: 4px; box-shadow: inset 0 0 20px #000; }
+        .row-btm .pad-phys { border: 1.5px solid var(--akai-red); }
+
+        /* RIGHT: Screen & Knobs */
+        .right-block { flex-grow: 1; padding-left: 45px; }
+        .sys-line { display: flex; align-items: flex-end; gap: 15px; margin-bottom: 20px; }
+        .oled-display { width: 120px; height: 70px; background: #000; border: 2.5px solid #222; padding: 10px; font-family: monospace; display: flex; flex-direction: column; justify-content: space-between; }
+        .pad-ctrl-container { flex-grow: 1; display: flex; flex-direction: column; align-items: center; }
+        .pc-header { color: #888; font-size: 8.5px; font-weight: 900; margin-bottom: 6px; text-transform: uppercase; }
+        .pc-strip { display: flex; gap: 5px; width: 100%; }
+        .pc-btn { flex: 1; background: #0a0a0a; border: 1.5px solid #252525; height: 36px; padding: 2px; }
+
+        .knob-matrix { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 10px; }
+        .knob-u { display: flex; flex-direction: column; align-items: center; }
+        .knob-id-label { font-size: 8px; color: #888; font-weight: 900; align-self: flex-start; margin-bottom: 4px; }
+        .knob-phys { width: 58px; height: 58px; border-radius: 50%; border: 2.5px solid #000; background: radial-gradient(circle at 35% 35%, #3a3a3a, #050505); position: relative; box-shadow: 0 8px 12px rgba(0,0,0,0.7); }
+        .knob-ptr { position: absolute; top: 6px; left: 50%; width: 2.5px; height: 10px; background: #fff; transform: translateX(-50%); }
+        .knob-pill { background: #252525; color: #eee; font-size: 6.5px; font-weight: 900; padding: 2.5px 10px; border-radius: 12px; margin-top: 8px; text-transform: uppercase; }
+
+        /* BRANDING */
+        .brand-strip { display: flex; align-items: baseline; gap: 10px; padding: 20px 0; }
+        .brand-akai-bold { color: #fff; font-size: 30px; font-weight: 900; letter-spacing: 1px; }
+        .brand-pro-vert { color: #fff; font-size: 8px; font-weight: 900; position: relative; top: -14px; }
+        .brand-mpk-bold { color: #fff; font-size: 48px; font-weight: 900; margin-left: 15px; }
+        .brand-mini-thin { color: #555; font-size: 48px; font-weight: 100; font-style: italic; letter-spacing: -1.5px;}
+
+        /* KEYBED & LABELS */
+        .keybed-wrapper { background: #000; position: relative; }
+        .annotations-bar {
+            height: 35px; width: 100%; position: relative;
+            padding: 0 10px; border-top: 2px solid #222;
+        }
+        .key-label { 
+            position: absolute; font-size: 7.5px; font-weight: 900; 
+            color: #666; transform: translateX(-50%); text-align: center; white-space: nowrap;
+        }
+        .key-label.red { color: var(--akai-red); }
+
+        /* Perfect center-mapping for 25 keys */
+        .l-w1 { left: 3.33%; } .l-b1 { left: 6.6%; } .l-w2 { left: 10%; } .l-b2 { left: 13.3%; } .l-w3 { left: 16.6%; }
+        .l-w4 { left: 23.3%; } .l-b3 { left: 26.6%; } .l-w5 { left: 30%; } .l-b4 { left: 33.3%; } .l-w6 { left: 36.6%; }
+        .l-b5 { left: 40%; } .l-w7 { left: 43.3%; } .l-w8 { left: 50%; } .l-b6 { left: 53.3%; } .l-w9 { left: 56.6%; }
+        .l-b7 { left: 60%; } .l-w10 { left: 63.3%; } .l-w11 { left: 70%; } .l-b8 { left: 73.3%; } .l-w12 { left: 76.6%; }
+        .l-b9 { left: 80%; } .l-w13 { left: 83.3%; } .l-b10 { left: 86.6%; } .l-w14 { left: 90%; } .l-w15 { left: 96.6%; }
+
+        .keys-flex { height: 260px; display: flex; position: relative; background: #000; padding: 0 5px; }
+        .white-key { flex: 1; border: 1px solid #999; border-top: none; border-radius: 0 0 5px 5px; background: linear-gradient(to bottom, #f0f0f0 0%, #fff 10%, #fff 90%, #bbb 100%); z-index: 1; }
+        .black-key { position: absolute; width: 4.2%; height: 62%; background: #000; border-radius: 0 0 3px 3px; z-index: 2; box-shadow: 0 6px 12px rgba(0,0,0,0.6); border: 1.5px solid #111; }
+        
+        .pos1 { left: 4.5%; } .pos2 { left: 11.2%; } .pos3 { left: 24.6%; } .pos4 { left: 31.3%; } .pos5 { left: 38%; } .pos6 { left: 51.4%; } .pos7 { left: 58.1%; } .pos8 { left: 71.5%; } .pos9 { left: 78.2%; } .pos10 { left: 84.9%; }
+    </style>
+</head>
+<body>
+    <div class="mpk-shell">
+        <div class="side-cheek"></div>
+        <div class="faceplate">
+            <div class="upper-layout">
+                <!-- Left -->
+                <div class="left-block">
+                    <div class="joy-well"><div class="joy-stick"></div></div>
+                    <div class="arp-wrap">
+                        <div class="arp-bracket"></div>
+                        <span class="arp-text">ARPEGGIATOR</span>
+                        <div class="arp-grid">
+                            <div class="btn-hw"><div class="btn-print">ON/OFF</div></div>
+                            <div class="btn-hw"><div class="btn-print">TAP TEMPO</div></div>
+                        </div>
+                    </div>
+                    <div class="global-btns">
+                        <div class="btn-hw"><div class="print-silver">OCT -</div></div>
+                        <div class="btn-hw"><div class="print-silver">OCT +</div></div>
+                        <div class="btn-hw"><div class="print-plain-red">FULL LEVEL</div></div>
+                        <div class="btn-hw"><div class="print-plain-red">NOTE REPEAT</div></div>
+                    </div>
+                </div>
+
+                <!-- Center Pads -->
+                <div class="center-block">
+                    <div class="pad-row">
+                        <div class="pad-u"><span class="pad-id">PAD 5</span><div class="pad-phys"></div></div>
+                        <div class="pad-u"><span class="pad-id">PAD 6</span><div class="pad-phys"></div></div>
+                        <div class="pad-u"><span class="pad-id">PAD 7</span><div class="pad-phys"></div></div>
+                        <div class="pad-u"><span class="pad-id">PAD 8</span><div class="pad-phys"></div></div>
+                    </div>
+                    <div class="pad-row row-btm">
+                        <div class="pad-u"><span class="pad-id" style="color:#eee">PAD 1</span><div class="pad-phys"></div><span class="pad-mid-id">PAD 1</span></div>
+                        <div class="pad-u"><span class="pad-id" style="color:#eee">PAD 2</span><div class="pad-phys"></div><span class="pad-mid-id">PAD 2</span></div>
+                        <div class="pad-u"><span class="pad-id" style="color:#eee">PAD 3</span><div class="pad-phys"></div><span class="pad-mid-id">PAD 3</span></div>
+                        <div class="pad-u"><span class="pad-id" style="color:#eee">PAD 4</span><div class="pad-phys"></div><span class="pad-mid-id">PAD 4</span></div>
+                    </div>
+                </div>
+
+                <!-- Right Bank -->
+                <div class="right-block">
+                    <div class="sys-line">
+                        <div class="oled-display">
+                            <div style="color:#fff; font-size:9px; font-weight:900">PAD-1</div>
+                            <div style="color:#888; font-size:8px;">NOTE#037&nbsp;&nbsp;CH02</div>
+                            <div style="color:#fff; font-size:18px; text-align:right; font-weight:900">127</div>
+                        </div>
+                        <div class="pad-ctrl-container">
+                            <div class="pc-header">PAD CONTROLS</div>
+                            <div class="pc-strip">
+                                <div class="pc-btn"><div class="print-silver">BANK<br>A/B</div></div>
+                                <div class="pc-btn"><div class="print-silver">CC</div></div>
+                                <div class="pc-btn"><div class="print-silver">PROG<br>CHANGE</div></div>
+                                <div class="pc-btn"><div class="print-silver">PROG<br>SELECT</div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="knob-matrix">
+                        <div class="knob-u"><span class="knob-id-label">K1</span><div class="knob-phys"><div class="knob-ptr"></div></div><span class="knob-pill">DIVISION</span></div>
+                        <div class="knob-u"><span class="knob-id-label">K2</span><div class="knob-phys"><div class="knob-ptr"></div></div><span class="knob-pill">SWING</span></div>
+                        <div class="knob-u"><span class="knob-id-label">K3</span><div class="knob-phys"><div class="knob-ptr"></div></div><span class="knob-pill">MODE</span></div>
+                        <div class="knob-u"><span class="knob-id-label">K4</span><div class="knob-phys"><div class="knob-ptr"></div></div><span class="knob-pill">OCT</span></div>
+                        <div class="knob-u"><span class="knob-id-label">K5</span><div class="knob-phys"><div class="knob-ptr"></div></div><span class="knob-pill">LATCH</span></div>
+                        <div class="knob-u"><span class="knob-id-label">K6</span><div class="knob-phys"><div class="knob-ptr"></div></div><span class="knob-pill">SYNC</span></div>
+                        <div class="knob-u"><span class="knob-id-label">K7</span><div class="knob-phys"><div class="knob-ptr"></div></div><span class="knob-pill">+/-</span></div>
+                        <div class="knob-u"><span class="knob-id-label">K8</span><div class="knob-phys"><div class="knob-ptr"></div></div><span class="knob-pill">SWING</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Branding -->
+            <div class="brand-strip">
+                <span class="brand-akai-bold">AKAI</span><span class="brand-pro-vert">PROFESSIONAL</span>
+                <span class="brand-mpk-bold">MPK</span><span class="brand-mini-thin">mini</span>
+            </div>
+
+            <!-- Key Labels & Bed -->
+            <div class="keybed-wrapper">
+                <div class="annotations-bar">
+                    <span class="key-label l-w1">1/4</span><span class="key-label l-b1">1/4T</span><span class="key-label l-w2">1/8</span><span class="key-label l-b2">1/8T</span><span class="key-label l-w3">1/16</span><span class="key-label l-w4">1/16T</span><span class="key-label l-b3">1/32</span><span class="key-label l-w5">1/32T</span><span class="key-label l-b4">UP</span><span class="key-label l-w6">DOWN</span><span class="key-label l-b5">EXCL</span><span class="key-label l-w7">INCL</span><span class="key-label l-w8">ORDER</span><span class="key-label l-b6">RAND</span><span class="key-label l-w9">LATCH</span><span class="key-label red l-b7">OCT 1</span><span class="key-label red l-w10">OCT 2</span><span class="key-label red l-w11">OCT 3</span><span class="key-label red l-b8">OCT 4</span><span class="key-label l-w12">50%</span><span class="key-label l-b9">55%</span><span class="key-label l-w13">57%</span><span class="key-label l-b10">59%</span><span class="key-label l-w14">61%</span><span class="key-label l-w15">64%</span>
+                </div>
+                <div class="keys-flex">
+                    <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+                    <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+                    <div class="white-key"></div><div class="white-key"></div><div class="white-key"></div><div class="white-key"></div><div class="white-key"></div>
+                    <div class="black-key pos1"></div><div class="black-key pos2"></div><div class="black-key pos3"></div><div class="black-key pos4"></div><div class="black-key pos5"></div>
+                    <div class="black-key pos6"></div><div class="black-key pos7"></div><div class="black-key pos8"></div><div class="black-key pos9"></div><div class="black-key pos10"></div>
+                </div>
+            </div>
+        </div>
+        <div class="side-cheek"></div>
+    </div>
+</body>
+</html>
