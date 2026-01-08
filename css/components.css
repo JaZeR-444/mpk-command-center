@@ -518,6 +518,32 @@
   .control-spec-body {
     grid-template-columns: 1fr;
   }
+  
+  .btn {
+    padding: var(--space-3) var(--space-4);
+    font-size: var(--text-sm);
+    min-height: 44px;
+  }
+  
+  .card {
+    padding: var(--space-5);
+  }
+  
+  .workflow-card,
+  .phase-card {
+    margin-bottom: var(--space-4);
+  }
+  
+  .workflow-header,
+  .phase-header {
+    flex-wrap: wrap;
+  }
+  
+  .workflow-icon {
+    width: 48px;
+    height: 48px;
+    font-size: 1.5rem;
+  }
 }
 
 .control-spec-column h5 {

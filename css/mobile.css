@@ -1,0 +1,435 @@
+/* ============================================
+   MPK Mini MK3 Playbook - Mobile Optimizations
+   Enhanced mobile responsiveness & touch interactions
+   ============================================ */
+
+/* ─────────────────────────────────────────
+   MOBILE-SPECIFIC IMPROVEMENTS
+   ───────────────────────────────────────── */
+
+/* Prevent text size adjustments on orientation change */
+html {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* Improve tap highlighting */
+* {
+  -webkit-tap-highlight-color: rgba(255, 61, 0, 0.1);
+}
+
+/* ─────────────────────────────────────────
+   TOUCH TARGET SIZING (44px minimum)
+   ───────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  /* Ensure all interactive elements meet minimum touch target */
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  .btn,
+  .nav-link,
+  .control-item,
+  .accordion-trigger {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Button improvements */
+  .btn {
+    padding: 12px 16px;
+    font-size: 16px;
+  }
+  
+  .btn-icon {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ─────────────────────────────────────────
+   TYPOGRAPHY SCALING
+   ───────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  body {
+    font-size: 14px;
+    line-height: 1.6;
+  }
+  
+  h1 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+  }
+  
+  h2 {
+    font-size: 1.4rem;
+    line-height: 1.3;
+  }
+  
+  h3 {
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+  
+  .lead,
+  .hero .lead {
+    font-size: 1rem;
+  }
+}
+
+/* ─────────────────────────────────────────
+   MOBILE LAYOUT ADJUSTMENTS
+   ───────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  /* Full width containers on mobile */
+  .content-wrapper,
+  .section-inner,
+  .page-content {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  /* Stack all grids */
+  .grid-2,
+  .grid-3,
+  .grid-4,
+  .grid-2-col,
+  .grid-3-col {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  /* Compact spacing */
+  .section {
+    padding: 48px 0;
+  }
+  
+  /* Hero adjustments */
+  .hero {
+    padding: 80px 16px 48px;
+  }
+  
+  .hero-badge {
+    font-size: 0.7rem;
+    padding: 6px 12px;
+  }
+}
+
+/* ─────────────────────────────────────────
+   MODAL & OVERLAY IMPROVEMENTS
+   ───────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .search-modal {
+    padding: 16px;
+    padding-top: 80px;
+  }
+  
+  .search-modal-inner {
+    max-width: 100%;
+  }
+  
+  .search-modal-input {
+    padding: 16px;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+  
+  /* Bottom sheet optimizations */
+  .bottom-sheet-content {
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+  
+  /* Modal close buttons easier to tap */
+  .about-close,
+  .shortcuts-close,
+  .mobile-nav-close {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* ─────────────────────────────────────────
+   TABLE IMPROVEMENTS
+   ───────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .table-wrapper,
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-left: -16px;
+    margin-right: -16px;
+    padding: 0 16px;
+  }
+  
+  table {
+    font-size: 0.85rem;
+  }
+  
+  th,
+  td {
+    padding: 12px 8px;
+    white-space: nowrap;
+  }
+}
+
+/* ─────────────────────────────────────────
+   CARD IMPROVEMENTS
+   ───────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .card,
+  .workflow-card,
+  .phase-card,
+  .playbook-card {
+    padding: 16px;
+  }
+  
+  .card:hover,
+  .workflow-card:hover,
+  .phase-card:hover {
+    transform: none; /* Disable hover lift on mobile */
+  }
+  
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}
+
+/* ─────────────────────────────────────────
+   FORM & INPUT IMPROVEMENTS
+   ───────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  input,
+  textarea,
+  select,
+  .input,
+  .search-input {
+    font-size: 16px; /* Prevents zoom on iOS */
+    padding: 12px;
+  }
+  
+  /* Full width inputs on mobile */
+  #control-search,
+  .full-width-search {
+    width: 100%;
+    min-width: 100%;
+  }
+}
+
+/* ─────────────────────────────────────────
+   NAVIGATION ENHANCEMENTS
+   ───────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  /* Mobile nav improvements */
+  .mobile-nav-link {
+    padding: 16px;
+    font-size: 1rem;
+  }
+  
+  /* Sticky header adjustments */
+  .header,
+  .sticky-nav {
+    position: fixed;
+    backdrop-filter: blur(10px);
+  }
+  
+  /* Breadcrumbs */
+  .breadcrumbs {
+    font-size: 0.75rem;
+    flex-wrap: wrap;
+  }
+}
+
+/* ─────────────────────────────────────────
+   VISUALIZER MOBILE ADJUSTMENTS
+   ───────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .hero-visualizer-preview {
+    max-width: 100%;
+    padding: 16px;
+  }
+  
+  .mini-mpk {
+    padding: 12px;
+  }
+  
+  .mini-pads {
+    gap: 4px;
+  }
+}
+
+/* ─────────────────────────────────────────
+   SCROLL IMPROVEMENTS
+   ───────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  /* Smooth momentum scrolling */
+  .control-list,
+  .search-results,
+  .toc-sidebar,
+  .accordion-content {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Thinner scrollbars on mobile */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+}
+
+/* ─────────────────────────────────────────
+   DICTIONARY/CONTROLS MOBILE
+   ───────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .dictionary-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .control-list {
+    max-height: 250px;
+    overflow-y: auto;
+    display: block;
+  }
+  
+  .control-detail {
+    position: static;
+    padding: 16px;
+  }
+  
+  .controls-toolbar {
+    flex-direction: column;
+    width: 100%;
+    gap: 12px;
+  }
+  
+  .mode-toggle {
+    width: 100%;
+  }
+}
+
+/* ─────────────────────────────────────────
+   UTILITY CLASSES FOR MOBILE
+   ───────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .mobile-hidden {
+    display: none !important;
+  }
+  
+  .mobile-full-width {
+    width: 100% !important;
+  }
+  
+  .mobile-text-center {
+    text-align: center !important;
+  }
+  
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+}
+
+/* ─────────────────────────────────────────
+   LANDSCAPE MOBILE ADJUSTMENTS
+   ───────────────────────────────────────── */
+
+@media (max-width: 896px) and (orientation: landscape) {
+  .hero {
+    padding: 40px 16px 32px;
+  }
+  
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+  
+  .hero-stats {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}
+
+/* ─────────────────────────────────────────
+   ACCESSIBILITY - REDUCE MOTION
+   ───────────────────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ─────────────────────────────────────────
+   SAFE AREA INSETS (iPhone X+)
+   ───────────────────────────────────────── */
+
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+  }
+  
+  .header,
+  .footer {
+    padding-left: max(16px, env(safe-area-inset-left));
+    padding-right: max(16px, env(safe-area-inset-right));
+  }
+  
+  .bottom-sheet-content {
+    padding-bottom: max(24px, env(safe-area-inset-bottom));
+  }
+}
+
+/* ─────────────────────────────────────────
+   BACK TO TOP BUTTON MOBILE
+   ───────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .back-to-top {
+    bottom: 16px;
+    right: 16px;
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ─────────────────────────────────────────
+   TOAST NOTIFICATIONS MOBILE
+   ───────────────────────────────────────── */
+
+@media (max-width: 768px) {
+  .toast-container {
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    transform: none;
+    align-items: stretch;
+  }
+  
+  .toast {
+    width: 100%;
+  }
+}

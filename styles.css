@@ -71,6 +71,41 @@ li { margin-bottom: var(--spacing-sm); }
 @media (max-width: 768px) {
    .grid-2-col,.grid-3-col { grid-template-columns: 1fr; }
     h1 { font-size: 2rem; }
+    
+    /* Mobile-specific improvements */
+    body {
+        font-size: 15px;
+    }
+    
+    h2 {
+        font-size: 1.5rem;
+        padding-left: var(--spacing-sm);
+    }
+    
+    h3 {
+        font-size: 1.1rem;
+    }
+    
+    /* Improve touch targets */
+    .nav-links a,
+    .control-item,
+    .mode-btn {
+        min-height: 44px;
+        display: flex;
+        align-items: center;
+    }
+    
+    /* Stack navigation */
+    .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    /* Full width search on mobile */
+    #control-search {
+        min-width: 100%;
+        width: 100%;
+    }
 }
 
 /* --- Navigation --- */
@@ -339,6 +374,27 @@ li { margin-bottom: var(--spacing-sm); }
    .dictionary-layout { grid-template-columns: 1fr; }
    .control-detail { position: static; margin-top: 20px; }
    .control-list { max-height: 200px; }
+   
+   /* Mobile scroll improvements */
+   .control-list {
+       max-height: 300px;
+       display: block;
+   }
+   
+   /* Better mobile padding */
+   .control-detail {
+       padding: var(--spacing-md);
+   }
+   
+   /* Improve controls toolbar wrapping */
+   .controls-toolbar {
+       width: 100%;
+   }
+   
+   .mode-toggle {
+       width: 100%;
+       justify-content: space-between;
+   }
 }
 
 /* --- Tables (Deep Dive & TS) --- */
@@ -404,6 +460,17 @@ tr:hover { background: #1a1a1a; }
 
 @media (max-width: 768px) {
    .recipe-grid { grid-template-columns: 1fr; }
+   
+   /* Mobile playbook improvements */
+   .playbook-card {
+       padding: var(--spacing-md);
+   }
+   
+   /* Better spacing for mobile */
+   .callout {
+       padding: var(--spacing-sm);
+       margin-top: var(--spacing-md);
+   }
 }
 
 /* --- Code Blocks --- */
