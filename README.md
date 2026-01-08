@@ -8,6 +8,12 @@
 
 **A production-grade web application providing real-time visualization, intelligent deployment protocols, and advanced workflow strategies for professional music production.**
 
+<p align="center">
+  <a href="https://jazer-444.github.io/mpk-command-center/">
+    <img src="https://img.shields.io/badge/🚀_Live_Demo-Try_It_Now-00f2ff?style=for-the-badge" alt="Live Demo" />
+  </a>
+</p>
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/version-2026.1.0-blue.svg)](https://semver.org)
 [![Tech Stack](https://img.shields.io/badge/stack-Vanilla_JS_+_WebMIDI-F7DF1E.svg?logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
